@@ -22,7 +22,7 @@ Lab 2: Circular Linked Lists and Doubly Linked Lists (+ Introduction to complexi
 ```
 Lab 3: Test 1 - Lists
 ```
-* Statistics - [problems, some good solutions and grades distributions] (www.notimplementedyet.com)
+* Statistics - [problems, some good solutions and grades distributions](www.notimplementedyet.com)
 
 ```
 Lab 4: Trees - more precisely, Binary Trees, Balanced Binary Trees (the theory)
@@ -41,7 +41,7 @@ Lab 5: Binary Search Trees
 ```
 Lab 6: Test 2 - Trees
 ```
-* Statistics - [problems, almost minimal solutions and grades distributions] (www.notimplementedyet.com)
+* Statistics - [problems, almost minimal solutions and grades distributions](www.notimplementedyet.com)
 
 ```
 Lab 7: Graphs - representation and traversals
@@ -61,13 +61,13 @@ Lab 8: Graphs - Graph Processing Algorithms (Dijkstra, Prim, Kursal, Floyd etc.)
 Lab 9: Test 3 - Graphs
 ```
 * [Test Skeleton project](https://github.com/AC-2015-Sem2/DSA-lab/tree/master/Interesting%20Stuff/Graphs101%20-%20test%20skeleton)
-* Statistics - [complete solutions to all algorithms and grades distributions] (www.notimplementedyet.com)
+* Statistics - [complete solutions to all algorithms and grades distributions](www.notimplementedyet.com)
 ```
 Lab 10: Hash Tables - introduction, collision detection, usages
 ```
 * Assignments 7:
 	- [Meta-instructions](https://github.com/cs-utcn-groups/2-dsa/tree/master/Assignments/Assignment%207)
-	- [Hash Tables - Open Addressing] (https://github.com/cs-utcn-groups/2-dsa/tree/master/Assignments/Assignment%207/Assignment%207.1%20-%20Hash%20Tables%20-%20Open%20Addressing)
+	- [Hash Tables - Open Addressing](https://github.com/cs-utcn-groups/2-dsa/tree/master/Assignments/Assignment%207/Assignment%207.1%20-%20Hash%20Tables%20-%20Open%20Addressing)
 	- [Hash Tables - Chaining](https://github.com/cs-utcn-groups/2-dsa/tree/master/Assignments/Assignment%207/Assignment%207.2%20-%20Hash%20Tables%20-%20Chaining)
 
 
@@ -135,9 +135,9 @@ Lab 13: Exam problem practice
 
 ### Catalysts Coding Contest
 
-* Anyone who chooses to participate in the [Catalysts Coding Contest](https://register.codingcontest.org/) (<-- LINK) will be awarded 0.3 points to the final mark
+* Anyone who chooses to participate in the [Catalysts Coding Contest](https://register.codingcontest.org/) will be awarded 0.3 points to the final mark
 * For every level successfully completed (with or without a team) an additional 0.1 points will be added to everyone in the team (or to the solo participant) up to a total of 0.7 points if you somehow manage to complete all 7 levels
 * If you manage to be in the top 10 contestants you will get an additional 1 point to the final grade
 * Don't forget - free pizza and drinks at the end!
 * Helpful hint #1: the first two levels are terribly simple most of the times
-* Helpful hint #2: you sample a few problems [here](http://contest.catalysts.cc/en/) (<-- LINK) 
+* Helpful hint #2: you sample a few problems [here](http://contest.catalysts.cc/en/)
