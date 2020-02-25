@@ -13,14 +13,14 @@ typedef struct
 }list;
 
 list createList();
-void addFirst(list myList, int value);
-void addLast(list myList, int value);
-void deleteFirst(list myList);
-void deleteLast(list myList);
-void deleteAll(list myList);
-void deleteValue(list myList, int value);
-void printAll(list myList);
-void printFirstX(list myList, int x);
-void printLastX(list myList, int x);
+void addFirst(list* myList, int value);
+void addLast(list* myList, int value);
+void deleteFirst(list* myList);
+void deleteLast(list* myList);
+void deleteAll(list* myList);
+void deleteValue(list* myList, int value);
+void printAll(list* myList);
+void printFirstX(list* myList, int x);
+void printLastX(list* myList, int x);
 
 #endif //ASSIGNMENT1_LIST_H
