@@ -41,11 +41,21 @@ void deleteFirst(list* myList)
 
 void deleteLast(list* myList)
 {
-    node* lastButOne = myList->first;
-    while(lastButOne->next->next!=NULL) lastButOne=lastButOne->next;
-    free(myList->last);
-    myList->last = lastButOne;
-    lastButOne->next=NULL;
+    if(myList->last!=NULL) {
+        node *lastButOne = myList->first;
+        if (myList->first != myList->last) {
+            while (lastButOne->next->next != NULL) lastButOne = lastButOne->next;
+            free(myList->last);
+            myList->last = lastButOne;
+            lastButOne->next = NULL;
+        }
+        else
+        {
+            free(myList->last);
+            myList->last=NULL;
+            myList->first=NULL;
+        }
+    }
 }
 
 void deleteAll(list* myList)
@@ -57,6 +67,7 @@ void deleteAll(list* myList)
         myList->first = myList->first->next;
         free(curFirst);
     }
+    myList->last=NULL;
 }
 
 void deleteValue(list* myList, int value)
@@ -92,30 +103,28 @@ void deleteValue(list* myList, int value)
     }
 }
 
-void printAll(list* myList)
+void printAll(list* myList, FILE* outFile)
 {
-    printf("The list's current content is: ");
     node* curNode = myList->first;
     while(curNode!=NULL)
     {
-        printf("%d ", curNode->data);
+        fprintf(outFile, "%d ", curNode->data);
         curNode=curNode->next;
     }
-    printf("\n");
+    fprintf(outFile,"\n");
 }
 
-void printFirstX(list* myList, int x)
+void printFirstX(list* myList, int x, FILE* outFile)
 {
-    printf("The list's first %d elements are: ", x);
     int countPrintedElem = 0;
     node* curNode = myList->first;
     while(countPrintedElem<x && curNode!=NULL)
     {
-        printf("%d ", curNode->data);
+        fprintf(outFile, "%d ", curNode->data);
         curNode=curNode->next;
         countPrintedElem++;
     }
-    printf("\n");
+    fprintf(outFile,"\n");
 }
 
 static node* findLastButXthNode(node* curNode, int* curIndex, int x) //curIndex = index of curNode counted from the end of the list
@@ -140,16 +149,15 @@ static node* findLastButXthNode(node* curNode, int* curIndex, int x) //curIndex 
     }
 }
 
-void printLastX(list* myList, int x)
+void printLastX(list* myList, int x, FILE* outFile)
 {
-    printf("The list's last %d elements are: ", x);
     int helper;
     node* startNode = findLastButXthNode(myList->first, &helper, x);
     if(startNode==NULL) startNode=myList->first; //if size of myList < x, then startNode is NULL --> all of the elements must be printed
     while(startNode!=NULL)
     {
-        printf("%d ", startNode->data);
+        fprintf(outFile, "%d ", startNode->data);
         startNode=startNode->next;
     }
-    printf("\n");
+    fprintf(outFile, "\n");
 }
