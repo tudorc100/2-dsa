@@ -130,7 +130,7 @@ Lab 13: Exam problem practice
 
 * [Generic Lists](https://github.com/cs-utcn-groups/2-dsa/tree/master/Interesting%20Stuff/GenericLists) more exactly, how to create a (reusable) node which can remain the same for most of the functionality of the list regardless of the problem to be solved?
 * [Pointers to functions](https://github.com/cs-utcn-groups/2-dsa/tree/master/Interesting%20Stuff/PointersToFunctions) a cute example of how you can use a structure to simulate OOP behaviour.
-* [And Many More ...](https://github.com/cs-utcn-groups/2-dsa/tree/master/Interesting%20Stuff)
+* [Many more will be added in time, here](https://github.com/cs-utcn-groups/2-dsa/tree/master/Interesting%20Stuff)
 
 
 ### Catalysts Coding Contest
