@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/SEM 2 DSA/Assignment_1/alloc.c
+alloc.h
+E:/SEM 2 DSA/Assignment_1/alloc.h
+
+E:/SEM 2 DSA/Assignment_1/alloc.h
+stdlib.h
+-
+stdio.h
+-
+
