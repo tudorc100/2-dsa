@@ -34,9 +34,12 @@ void addLast(list* myList, int value)
 
 void deleteFirst(list* myList)
 {
-    node* prevFirst = myList->first;
-    myList->first = myList->first->next;
-    free(prevFirst);
+    if(myList->first!=NULL) {
+        node *prevFirst = myList->first;
+        myList->first = myList->first->next;
+        free(prevFirst);
+        if(myList->first==NULL) myList->last=NULL;
+    }
 }
 
 void deleteLast(list* myList)
@@ -105,26 +108,30 @@ void deleteValue(list* myList, int value)
 
 void printAll(list* myList, FILE* outFile)
 {
-    node* curNode = myList->first;
-    while(curNode!=NULL)
-    {
-        fprintf(outFile, "%d ", curNode->data);
-        curNode=curNode->next;
+    if(myList->first==NULL) fprintf(outFile, "List is empty\n");
+    else {
+        node *curNode = myList->first;
+        while (curNode != NULL) {
+            fprintf(outFile, "%d ", curNode->data);
+            curNode = curNode->next;
+        }
+        fprintf(outFile, "\n");
     }
-    fprintf(outFile,"\n");
 }
 
 void printFirstX(list* myList, int x, FILE* outFile)
 {
-    int countPrintedElem = 0;
-    node* curNode = myList->first;
-    while(countPrintedElem<x && curNode!=NULL)
-    {
-        fprintf(outFile, "%d ", curNode->data);
-        curNode=curNode->next;
-        countPrintedElem++;
+    if(myList->first==NULL) fprintf(outFile, "List is empty\n");
+    else {
+        int countPrintedElem = 0;
+        node *curNode = myList->first;
+        while (countPrintedElem < x && curNode != NULL) {
+            fprintf(outFile, "%d ", curNode->data);
+            curNode = curNode->next;
+            countPrintedElem++;
+        }
+        fprintf(outFile, "\n");
     }
-    fprintf(outFile,"\n");
 }
 
 static node* findLastButXthNode(node* curNode, int* curIndex, int x) //curIndex = index of curNode counted from the end of the list
@@ -151,13 +158,16 @@ static node* findLastButXthNode(node* curNode, int* curIndex, int x) //curIndex 
 
 void printLastX(list* myList, int x, FILE* outFile)
 {
-    int helper;
-    node* startNode = findLastButXthNode(myList->first, &helper, x);
-    if(startNode==NULL) startNode=myList->first; //if size of myList < x, then startNode is NULL --> all of the elements must be printed
-    while(startNode!=NULL)
-    {
-        fprintf(outFile, "%d ", startNode->data);
-        startNode=startNode->next;
+    if(myList->first==NULL) fprintf(outFile, "List is empty\n");
+    else {
+        int helper;
+        node *startNode = findLastButXthNode(myList->first, &helper, x);
+        if (startNode == NULL)
+            startNode = myList->first; //if size of myList < x, then startNode is NULL --> all of the elements must be printed
+        while (startNode != NULL) {
+            fprintf(outFile, "%d ", startNode->data);
+            startNode = startNode->next;
+        }
+        fprintf(outFile, "\n");
     }
-    fprintf(outFile, "\n");
 }
