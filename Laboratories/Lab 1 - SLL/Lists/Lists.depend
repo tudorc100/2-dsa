@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1582651220 source:c:\users\alex\desktop\predare\2019-2020 - sem 2\testproblems\lists\main.c
+	"head.h"
+
+1582648940 c:\users\alex\desktop\predare\2019-2020 - sem 2\testproblems\lists\head.h
+	<stdio.h>
+	<stdlib.h>
+
+1582651144 source:c:\users\alex\desktop\predare\2019-2020 - sem 2\testproblems\lists\sll.c
+	"head.h"
+
