@@ -5,4 +5,18 @@
 #ifndef EXTRA_ASSIGNMENT_1_COUNTRIES_H
 #define EXTRA_ASSIGNMENT_1_COUNTRIES_H
 
+#include "country.h"
+#include "bunker.h"
+
+typedef struct
+{
+    int noCountries;
+    Country* countries;
+    Country countryWithHBlow;
+}allCountries;
+
+allCountries createAllCountries();
+void readDataOfAllCountries(allCountries* myCountries, FILE* inFile);
+void attackWhileNeeded(allCountries* myCountries, Bunker* myBunker);
+
 #endif //EXTRA_ASSIGNMENT_1_COUNTRIES_H

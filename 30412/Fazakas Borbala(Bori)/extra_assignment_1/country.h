@@ -6,6 +6,7 @@
 #define EXTRA_ASSIGNMENT_1_COUNTRY_H
 
 #include "list.h"
+#include "bunker.h"
 
 #define MAX_NAME_LENGTH 100
 
@@ -17,8 +18,9 @@ typedef struct
 
 Country createCountry();
 void readDataOfCountry(Country* myCountry, FILE* inFile);
-void attackWithNextWave();
+void attackWithNextWave(Country* myCountry, Bunker* myBunker);
 int power(Country* thisCountry);
+int hasRemainingWaves(Country* thisCountry);
 //int canDefeatAlone(Country* country, )
 
 

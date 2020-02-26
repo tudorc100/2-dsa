@@ -24,5 +24,8 @@ void deleteValue(list* myList, int value);
 void printAll(list* myList, FILE* outFile);
 void printFirstX(list* myList, int x, FILE* outFile);
 void printLastX(list* myList, int x, FILE* outFile);
+int sumOfElements(list* myList);
+int firstValue(list* myList);
+int subtractFromFirstValue(list* myList, int value);
 
 #endif //ASSIGNMENT1_LIST_H

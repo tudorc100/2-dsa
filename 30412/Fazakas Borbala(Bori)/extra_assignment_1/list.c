@@ -177,3 +177,26 @@ void printLastX(list* myList, int x, FILE* outFile)
         fprintf(outFile, "\n");
     }
 }
+
+int sumOfElements(list* myList)
+{
+    node* curNode = myList->first;
+    int sum =0;
+    while(curNode!=NULL)
+    {
+        sum+=curNode->data;
+        curNode=curNode->next;
+    }
+    return sum;
+}
+
+int firstValue(list* myList)
+{
+    if(myList->first==NULL) return 0;
+    return myList->first->data;
+}
+
+int subtractFromFirstValue(list* myList, int value)
+{
+    myList->first->data-=value;
+}

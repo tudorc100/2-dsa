@@ -14,8 +14,8 @@ typedef struct
 }Bunker;
 
 Bunker createBunker();
-void readDataOfBunker();
-int defeated(Bunker* thisBunker);
+void readDataOfBunker(Bunker* myBunker, FILE* inFile);
+int isDefeated(Bunker* thisBunker);
 
 
 #endif //EXTRA_ASSIGNMENT_1_BUNKER_H

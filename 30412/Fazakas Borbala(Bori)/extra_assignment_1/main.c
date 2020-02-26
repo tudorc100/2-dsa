@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "bunker.h"
 #include "country.h"
+#include "countries.h"
 
 #define FILE_ERR_CODE 1
 #define FILE_ERR_MESS "Error opening file"
@@ -19,11 +20,20 @@ FILE* openFile(char* name, char* mode)
 
 int main() {
     FILE* inFile = openFile("input.dat", "r");
-    FILE* outFile = openFile("outPut.dat", "w");
+    FILE* outFile = openFile("output.dat", "w");
 
     Bunker myBunker = createBunker();
+    readDataOfBunker(&myBunker, inFile);
+    allCountries myCountries = createAllCountries();
+    readDataOfAllCountries(&myCountries, inFile);
 
-
+    attackWhileNeeded(&myCountries, &myBunker);
+    if(isDefeated(&myBunker))
+    {
+        printf("The bunker was defeated\n");
+        printf("the last hit was done by %s\n", myCountries.countryWithHBlow.name);
+    }
+    else printf("The bunker won\n");
 
     return 0;
 }
