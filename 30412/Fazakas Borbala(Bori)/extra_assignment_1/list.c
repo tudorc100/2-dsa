@@ -200,3 +200,28 @@ int subtractFromFirstValue(list* myList, int value)
 {
     myList->first->data-=value;
 }
+
+int size(list* myList)
+{
+    int noNodes = 0;
+    node *curNode = myList->first;
+    while (curNode != NULL) {
+        noNodes++;
+        curNode = curNode->next;
+    }
+    return noNodes;
+}
+
+int noElementsWithSumSmallerOrEqual(list* myList, int sum)
+{
+    int noElements = 0;
+    node* curNode = myList->first;
+    int curSum = 0;
+    while(curNode!=NULL && curSum+curNode->data<=sum)
+    {
+        curSum += curNode->data;
+        noElements++;
+        curNode = curNode->next;
+    }
+    return noElements;
+}

@@ -30,6 +30,8 @@ void readDataOfCountry(Country* myCountry, FILE* inFile)
     while( (token = strtok(NULL, s))!=NULL) {
         addLast(&myCountry->waves, atoi(token));
     }
+
+    myCountry->power = sumOfElements(&myCountry->waves);
 }
 
 int hasRemainingWaves(Country* thisCountry)
@@ -38,10 +40,6 @@ int hasRemainingWaves(Country* thisCountry)
     return 1;
 }
 
-int power(Country* thisCountry)
-{
-    return sumOfElements(&thisCountry->waves);
-}
 
 static int min(int a, int b)
 {
@@ -60,4 +58,9 @@ void attackWithNextWave(Country* myCountry, Bunker* myBunker)
         if(usablePower>=firstValue(&myBunker->sentinels)) deleteFirst(&myBunker->sentinels);
         else subtractFromFirstValue(&myBunker->sentinels, usablePower);
     }
+}
+
+int canDefeatAlone(Country* myCountry, Bunker* myBunker)
+{
+    return noElementsWithSumSmallerOrEqual(&myBunker->sentinels, myCountry->power);
 }

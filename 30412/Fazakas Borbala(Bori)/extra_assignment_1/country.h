@@ -14,14 +14,14 @@ typedef struct
 {
     char* name;
     list waves;
+    int power;
 }Country;
 
 Country createCountry();
 void readDataOfCountry(Country* myCountry, FILE* inFile);
 void attackWithNextWave(Country* myCountry, Bunker* myBunker);
-int power(Country* thisCountry);
 int hasRemainingWaves(Country* thisCountry);
-//int canDefeatAlone(Country* country, )
+int canDefeatAlone(Country* myCountry, Bunker* myBunker); //nr of sentinels that he can defeat alone
 
 
 #endif //EXTRA_ASSIGNMENT_1_COUNTRY_H

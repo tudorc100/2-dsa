@@ -27,13 +27,23 @@ int main() {
     allCountries myCountries = createAllCountries();
     readDataOfAllCountries(&myCountries, inFile);
 
+    Country strongestC = strongestCountry(&myCountries);
+    int strongestCanWinAlone = canDefeatAlone(&strongestC, &myBunker) + 1 >= size(&myBunker.sentinels);
+
     attackWhileNeeded(&myCountries, &myBunker);
+
     if(isDefeated(&myBunker))
     {
-        printf("The bunker was defeated\n");
-        printf("the last hit was done by %s\n", myCountries.countryWithHBlow.name);
+        fprintf(outFile, "The tyrant was killed!\n");
+        fprintf(outFile, "The last hit was done by %s\n", myCountries.countryWithHBlow.name);
     }
-    else printf("The bunker won\n");
+    else fprintf(outFile, "The tyrant was NOT killed!\n");
+
+    fprintf(outFile, "The strongest country was: %s\n", strongestC.name);
+    fprintf(outFile, "The weakest country was: %s\n", weakestCountry(&myCountries).name);
+
+    if(strongestCanWinAlone) fprintf(outFile, "The strongest country could have defeated all the sentinels alone\n");
+    else fprintf(outFile, "No country could have defeated all the sentinels.\n");
 
     return 0;
 }

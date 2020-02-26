@@ -11,7 +11,6 @@ allCountries createAllCountries()
     return myCountries;
 }
 
-
 void readDataOfAllCountries(allCountries* myCountries, FILE* inFile)
 {
     fscanf(inFile, "%d", &myCountries->noCountries);
@@ -46,3 +45,26 @@ void attackWhileNeeded(allCountries* myCountries, Bunker* myBunker)
         if(nextCountryIndex==myCountries->noCountries) nextCountryIndex=0;
     }
 }
+
+Country strongestCountry(allCountries* myCountries)
+{
+    Country result = myCountries->countries[0];
+    for(int i=1; i<myCountries->noCountries; i++)
+    {
+        if(myCountries->countries[i].power>result.power) result = myCountries->countries[i];
+    }
+    return result;
+}
+
+
+Country weakestCountry(allCountries* myCountries)
+{
+    Country result = myCountries->countries[0];
+    for(int i=1; i<myCountries->noCountries; i++)
+    {
+        if(myCountries->countries[i].power<result.power) result = myCountries->countries[i];
+    }
+    return result;
+}
+
+

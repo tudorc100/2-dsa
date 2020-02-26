@@ -27,5 +27,6 @@ void printLastX(list* myList, int x, FILE* outFile);
 int sumOfElements(list* myList);
 int firstValue(list* myList);
 int subtractFromFirstValue(list* myList, int value);
-
+int size(list* myList);
+int noElementsWithSumSmallerOrEqual(list* myList, int sum);
 #endif //ASSIGNMENT1_LIST_H
