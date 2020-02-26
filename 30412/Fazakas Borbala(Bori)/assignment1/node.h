@@ -12,5 +12,6 @@ typedef struct _node
 } node;
 
 node* createNode(int data);
-node* createNodeWithNext(int data, node* next);
+
+node *createNodeWithNext(int data, node *next);
 #endif //ASSIGNMENT1_NODE_H
