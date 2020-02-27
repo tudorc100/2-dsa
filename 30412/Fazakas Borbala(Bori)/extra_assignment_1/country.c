@@ -60,7 +60,7 @@ void attackWithNextWave(Country* myCountry, Bunker* myBunker)
     }
 }
 
-int canDefeatAlone(Country* myCountry, Bunker* myBunker)
+int canDefeatAlone(Country* myCountry, Bunker* myBunker, int* remainingpower)
 {
-    return noElementsWithSumSmallerOrEqual(&myBunker->sentinels, myCountry->power);
+    return noElementsWithSumSmallerOrEqual(&myBunker->sentinels, myCountry->power, remainingpower);
 }

@@ -29,7 +29,7 @@ void attackWhileNeeded(allCountries* myCountries, Bunker* myBunker)
     int nextCountryIndex = 0;
     int noRemainingCountries = myCountries->noCountries;
     int defeatedBunker = 0;
-    while(!defeatedBunker)
+    while(!defeatedBunker && noRemainingCountries>0)
     {
         if(hasRemainingWaves(&myCountries->countries[nextCountryIndex]))
         {

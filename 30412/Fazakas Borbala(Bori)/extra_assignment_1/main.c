@@ -28,7 +28,9 @@ int main() {
     readDataOfAllCountries(&myCountries, inFile);
 
     Country strongestC = strongestCountry(&myCountries);
-    int strongestCanWinAlone = canDefeatAlone(&strongestC, &myBunker) + 1 >= size(&myBunker.sentinels);
+    int remaingPowerOfStrongest;
+    int strongestCanDefeatAlone = canDefeatAlone(&strongestC, &myBunker, &remaingPowerOfStrongest);
+    int sizeOfBunker = size(&myBunker.sentinels);
 
     attackWhileNeeded(&myCountries, &myBunker);
 
@@ -42,8 +44,12 @@ int main() {
     fprintf(outFile, "The strongest country was: %s\n", strongestC.name);
     fprintf(outFile, "The weakest country was: %s\n", weakestCountry(&myCountries).name);
 
-    if(strongestCanWinAlone) fprintf(outFile, "The strongest country could have defeated all the sentinels alone\n");
-    else fprintf(outFile, "No country could have defeated all the sentinels.\n");
+    if(strongestCanDefeatAlone+1>=sizeOfBunker) fprintf(outFile, "The strongest country(%s) could have defeated all the sentinels alone\n", strongestC.name);
+    else
+    {
+        fprintf(outFile, "No country could have defeated all the sentinels.\n");
+        fprintf(outFile, "%s could have brought down the first %d sentinels and would have had chipped off %d life points from sentinel %d.", strongestC.name, strongestCanDefeatAlone, remaingPowerOfStrongest, strongestCanDefeatAlone+1);
+    }
 
     return 0;
 }

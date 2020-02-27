@@ -212,7 +212,7 @@ int size(list* myList)
     return noNodes;
 }
 
-int noElementsWithSumSmallerOrEqual(list* myList, int sum)
+int noElementsWithSumSmallerOrEqual(list* myList, int sum, int* unUsedOfSum)
 {
     int noElements = 0;
     node* curNode = myList->first;
@@ -223,5 +223,6 @@ int noElementsWithSumSmallerOrEqual(list* myList, int sum)
         noElements++;
         curNode = curNode->next;
     }
+    *unUsedOfSum = sum - curSum;
     return noElements;
 }
