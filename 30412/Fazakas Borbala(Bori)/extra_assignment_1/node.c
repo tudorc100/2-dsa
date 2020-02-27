@@ -5,17 +5,15 @@
 #include "node.h"
 #include <stdlib.h>
 
-node* createNode(int data)
-{
-    node* newNode = (node*) malloc(sizeof(node));
+node *createNode(int data) {
+    node *newNode = (node *) malloc(sizeof(node));
     newNode->data = data;
     newNode->next = NULL;
     return newNode;
 }
 
-node* createNodeWithNext(int data, node* next)
-{
-    node* newNode = createNode(data);
+node *createNodeWithNext(int data, node *next) {
+    node *newNode = createNode(data);
     newNode->next = next;
     return newNode;
 }

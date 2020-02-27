@@ -8,18 +8,22 @@
 #include "country.h"
 #include "bunker.h"
 
-typedef struct
-{
+typedef struct {
     int noCountries;
-    Country* countries;
+    Country *countries;
     Country countryWithHBlow;
-}allCountries;
+} allCountries;
 
 allCountries createAllCountries();
-void readDataOfAllCountries(allCountries* myCountries, FILE* inFile);
-void attackWhileNeeded(allCountries* myCountries, Bunker* myBunker);
-Country strongestCountry(allCountries* myCountries);
-Country weakestCountry(allCountries* myCountries);
-void findBestCountries(allCountries* myCountries, Bunker* myBunker);
+
+void readDataOfAllCountries(allCountries *myCountries, FILE *inFile);
+
+void attackWhileNeeded(allCountries *myCountries, Bunker *myBunker);
+
+Country strongestCountry(allCountries *myCountries);
+
+Country weakestCountry(allCountries *myCountries);
+
+void findBestCountries(allCountries *myCountries, Bunker *myBunker);
 
 #endif //EXTRA_ASSIGNMENT_1_COUNTRIES_H

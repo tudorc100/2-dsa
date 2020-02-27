@@ -7,15 +7,16 @@
 
 #include "list.h"
 
-typedef struct
-{
+typedef struct {
     list sentinels; //stores the remaining sentinels remaining power
     int jimKongNuPower;
-}Bunker;
+} Bunker;
 
 Bunker createBunker();
-void readDataOfBunker(Bunker* myBunker, FILE* inFile);
-int isDefeated(Bunker* thisBunker);
+
+void readDataOfBunker(Bunker *myBunker, FILE *inFile);
+
+int isDefeated(Bunker *thisBunker);
 
 
 #endif //EXTRA_ASSIGNMENT_1_BUNKER_H
