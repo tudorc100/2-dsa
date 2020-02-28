@@ -10,45 +10,45 @@ int main() {
     while (!feof(f)) {
         fscanf(f,"%s",s);
         int x;
-        if (strncmp(s, "AF", 2) == 0) {
+        if (strcmp(s, "AF") == 0) {
             fscanf(f,"%d",&x);
             AddFirst(x);
             continue;
         }
-        if (strncmp(s, "AL", 2) == 0) {
+        if (strcmp(s, "AL") == 0) {
             fscanf(f,"%d",&x);
             AddLast(x);
             continue;
         }
-        if (strncmp(s, "DE", 2) == 0) {
+        if (strcmp(s, "DE") == 0) {
             fscanf(f,"%d",&x);
             DeleteElem(x);
             continue;
         }
-        if (strncmp(s, "PRINT_F", 7) == 0) {
+        if (strcmp(s, "PRINT_F") == 0) {
             fscanf(f,"%d",&x);
             PrintFirst(x);
             continue;
         }
-        if (strncmp(s, "PRINT_L", 7) == 0) {
+        if (strcmp(s, "PRINT_L") == 0) {
             fscanf(f,"%d",&x);
             PrintLast(x);
             continue;
         }
 
-        if (strncmp(s, "DF", 2) == 0) {
+        if (strcmp(s, "DF") == 0) {
             DeleteFirst();
             continue;
         }
-        if (strncmp(s, "DL", 2) == 0) {
+        if (strcmp(s, "DL") == 0) {
             DeleteLast();
             continue;
         }
-        if (strncmp(s, "DOOM_THE_LIST", 13) == 0) {
+        if (strcmp(s, "DOOM_THE_LIST") == 0) {
             DeleteList();
             continue;
         }
-        if (strncmp(s, "PRINT_ALL", 9) == 0) {
+        if (strcmp(s, "PRINT_ALL") == 0) {
             PrintList();
             continue;
         }

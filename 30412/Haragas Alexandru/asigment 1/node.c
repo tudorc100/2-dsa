@@ -41,8 +41,7 @@ void AddLast(int x) {
 }
 
 void DeleteFirst() {
-    if(first!=NULL)
-    {
+    if (first != NULL) {
         List *newnode = first;
         first = first->next;
         free(newnode);
@@ -53,15 +52,17 @@ void DeleteFirst() {
 }
 
 void DeleteLast() {
-    if(last!=NULL) {
-        List *newnode = last;
-        List *prevnode = first;
-        while (prevnode->next != last)
-            prevnode = prevnode->next;
-        last = prevnode;
-        prevnode->next = NULL;
-        free(newnode);
-        noelem--;
+    if (last == first)
+        DeleteFirst();
+    else {
+            List *newnode = last;
+            List *prevnode = first;
+            while (prevnode->next != last)
+                prevnode = prevnode->next;
+            last = prevnode;
+            prevnode->next = NULL;
+            free(newnode);
+            noelem--;
     }
 }
 
@@ -76,7 +77,7 @@ void DeleteElem(int x) {
     } else {
         List *curelem = first->next;
         List *prevelem = first;
-        while (curelem != last) {
+        while (curelem != last && curelem!=NULL) {
             if (curelem->val == x) {
                 prevelem->next = curelem->next;
                 free(curelem);
@@ -109,14 +110,14 @@ void PrintFirst(int x) {
 
 void PrintLast(int x) {
     List *curelem = first;
-    int c=noelem;
-    while(c>x){
-        curelem=curelem->next;
+    int c = noelem;
+    while (c > x) {
+        curelem = curelem->next;
         c--;
     }
-    while(curelem != NULL){
+    while (curelem != NULL) {
         printf("%d ", curelem->val);
-        curelem=curelem->next;
+        curelem = curelem->next;
     }
     printf("\n");
 }
