@@ -33,7 +33,10 @@ void readDataOfCountry(Country *myCountry, FILE *inFile) {
 }
 
 int hasRemainingWaves(Country *thisCountry) {
-    if (isEmpty(&thisCountry->waves)) return 0;
+    if (isEmpty(&thisCountry->waves))
+    {
+        return 0;
+    }
     return 1;
 }
 
@@ -49,8 +52,13 @@ void attackWithNextWave(Country *myCountry, Bunker *myBunker) {
     while (!isDefeated(myBunker) && nextPower > 0) {
         usablePower = min(nextPower, firstValue(&myBunker->sentinels));
         nextPower -= usablePower;
-        if (usablePower >= firstValue(&myBunker->sentinels)) deleteFirst(&myBunker->sentinels);
-        else subtractFromFirstValue(&myBunker->sentinels, usablePower);
+        if (usablePower >= firstValue(&myBunker->sentinels))
+        {
+            deleteFirst(&myBunker->sentinels);
+        }
+        else{
+            subtractFromFirstValue(&myBunker->sentinels, usablePower);
+        }
     }
 }
 

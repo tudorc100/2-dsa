@@ -24,6 +24,4 @@ Country strongestCountry(allCountries *myCountries);
 
 Country weakestCountry(allCountries *myCountries);
 
-void findBestCountries(allCountries *myCountries, Bunker *myBunker);
-
 #endif //EXTRA_ASSIGNMENT_1_COUNTRIES_H

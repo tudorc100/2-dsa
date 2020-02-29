@@ -32,7 +32,9 @@ void attackWhileNeeded(allCountries *myCountries, Bunker *myBunker) {
                 defeatedBunker = 1;
                 myCountries->countryWithHBlow = myCountries->countries[nextCountryIndex];
             }
-            if (!hasRemainingWaves(&myCountries->countries[nextCountryIndex])) noRemainingCountries--;
+            if (!hasRemainingWaves(&myCountries->countries[nextCountryIndex])) {
+                noRemainingCountries--;
+            }
         }
         nextCountryIndex++;
         if (nextCountryIndex == myCountries->noCountries) nextCountryIndex = 0;
@@ -42,7 +44,9 @@ void attackWhileNeeded(allCountries *myCountries, Bunker *myBunker) {
 Country strongestCountry(allCountries *myCountries) {
     Country result = myCountries->countries[0];
     for (int i = 1; i < myCountries->noCountries; i++) {
-        if (myCountries->countries[i].power > result.power) result = myCountries->countries[i];
+        if (myCountries->countries[i].power > result.power) {
+            result = myCountries->countries[i];
+        }
     }
     return result;
 }
@@ -51,7 +55,9 @@ Country strongestCountry(allCountries *myCountries) {
 Country weakestCountry(allCountries *myCountries) {
     Country result = myCountries->countries[0];
     for (int i = 1; i < myCountries->noCountries; i++) {
-        if (myCountries->countries[i].power < result.power) result = myCountries->countries[i];
+        if (myCountries->countries[i].power < result.power) {
+            result = myCountries->countries[i];
+        }
     }
     return result;
 }

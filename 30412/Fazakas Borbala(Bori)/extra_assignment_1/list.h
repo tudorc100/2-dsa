@@ -24,16 +24,6 @@ void deleteFirst(list *myList);
 
 void deleteLast(list *myList);
 
-void deleteAll(list *myList);
-
-void deleteValue(list *myList, int value);
-
-void printAll(list *myList, FILE *outFile);
-
-void printFirstX(list *myList, int x, FILE *outFile);
-
-void printLastX(list *myList, int x, FILE *outFile);
-
 int sumOfElements(list *myList);
 
 int firstValue(list *myList);
