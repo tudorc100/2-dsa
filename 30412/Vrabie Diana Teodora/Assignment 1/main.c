@@ -55,7 +55,9 @@ void readFromFile() {
         }
         case DE: {
             fscanf(inputFile, "%s", valueString);
-            //removeElement(valueString);
+            char *p = NULL;
+            value = strtol(valueString, &p, value);
+            removeElement(value);
             break;
         }
         case PRINT_F: {

@@ -81,5 +81,31 @@ void deleteList() {
         removeFirstElement();
 }
 
+void removeElement(int data) {
+    ListElement *currentElement = first;
+    ListElement *prevElement = first;
+    while (currentElement != NULL) {
+        if (currentElement->data == data) {
+            if (currentElement == first) {
+                first = first->next;
+            }
+            else if (currentElement == last) {
+                last = prevElement;
+                last->next = NULL;
+            }
+            else {
+                prevElement->next = currentElement->next;
+            }
+            prevElement = currentElement;
+            currentElement = currentElement->next;
+            free(prevElement);
+            prevElement = currentElement;
+        } else {
+            prevElement = currentElement;
+            currentElement = currentElement->next;
+        }
+    }
+}
+
 
 
