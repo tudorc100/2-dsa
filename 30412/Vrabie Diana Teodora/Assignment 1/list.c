@@ -4,6 +4,8 @@
 
 #include "list.h"
 
+int countElements();
+
 void initializeList() {
     first = NULL;
     last = NULL;
@@ -107,7 +109,7 @@ void removeElement(int data) {
     }
 }
 
-void printFirstElements(int nr, FILE *file) {
+void printFirstNElements(int nr, FILE *file) {
     ListElement *currentElement = first;
     for (int i = 0; i < nr; ++i) {
         if (currentElement == NULL) break;
@@ -115,6 +117,36 @@ void printFirstElements(int nr, FILE *file) {
         currentElement = currentElement->next;
     }
     fprintf(file, "\n");
+}
+
+void printLastNElements(int nr, FILE *file) {
+    int nrOfElements = countElements();
+    if (nrOfElements == 0) return;
+
+    if (nrOfElements <= nr)
+        printAll(file);
+    else {
+        int nrOfSkips = nrOfElements - nr;
+        ListElement *element = first;
+        for (int i = 0; i < nrOfSkips; ++i) {
+            element = element->next;
+        }
+        while (element!= NULL) {
+            fprintf(file, "%d ", element->data);
+            element = element->next;
+        }
+        fprintf(file, "\n");
+    }
+}
+
+int countElements() {
+    int nrOfElements = 0;
+    ListElement *element = first;
+    while (element != NULL) {
+        nrOfElements ++;
+        element = element->next;
+    }
+    return nrOfElements;
 }
 
 

@@ -22,8 +22,8 @@ void removeFirstElement();
 void removeLastElement();
 void removeElement(int data);
 void deleteList();
-void printFirstElements(int nr, FILE *file);
-void printLastElements(int nr, FILE *file);
+void printFirstNElements(int nr, FILE *file);
+void printLastNElements(int nr, FILE *file);
 void printAll(FILE *file);
 
 #endif //ASSIGNMENT_1_LIST_H

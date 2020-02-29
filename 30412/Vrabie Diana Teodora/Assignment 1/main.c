@@ -3,8 +3,8 @@
 #include <string.h>
 #include "list.h"
 
-#define INPUT_FILE_PATH "input.txt"
-#define OUTPUT_FILE_PATH "output.txt"
+#define INPUT_FILE_PATH "input.dat"
+#define OUTPUT_FILE_PATH "output.dat"
 
 FILE *outputFile, *inputFile;
 enum instructionList {AF, AL, DF, DL, DOOM_THE_LIST, DE, PRINT_ALL, PRINT_F, PRINT_L};
@@ -64,12 +64,14 @@ void readFromFile() {
             fscanf(inputFile, "%s", valueString);
             char *p = NULL;
             value = strtol(valueString, &p, value);
-            printFirstElements(value, outputFile);
+            printFirstNElements(value, outputFile);
             break;
         }
         case PRINT_L: {
             fscanf(inputFile, "%s", valueString);
-            //printLastElements(valueString, outputFile);
+            char *p = NULL;
+            value = strtol(valueString, &p, value);
+            printLastNElements(value, outputFile);
             break;
         }
         case DF: {
