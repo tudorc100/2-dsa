@@ -62,7 +62,9 @@ void readFromFile() {
         }
         case PRINT_F: {
             fscanf(inputFile, "%s", valueString);
-            //printFirstElements(valueString, outputFile);
+            char *p = NULL;
+            value = strtol(valueString, &p, value);
+            printFirstElements(value, outputFile);
             break;
         }
         case PRINT_L: {

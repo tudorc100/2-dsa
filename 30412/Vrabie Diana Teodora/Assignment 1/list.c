@@ -107,5 +107,15 @@ void removeElement(int data) {
     }
 }
 
+void printFirstElements(int nr, FILE *file) {
+    ListElement *currentElement = first;
+    for (int i = 0; i < nr; ++i) {
+        if (currentElement == NULL) break;
+        fprintf(file, "%d ", currentElement->data);
+        currentElement = currentElement->next;
+    }
+    fprintf(file, "\n");
+}
+
 
 
