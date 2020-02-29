@@ -1,0 +1,5 @@
+AF 1
+AF 2
+AF 3
+AF 4
+PRINT_ALL
