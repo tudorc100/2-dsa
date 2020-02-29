@@ -76,5 +76,10 @@ void removeLastElement() {
     }
 }
 
+void deleteList() {
+    while (first != NULL)
+        removeFirstElement();
+}
+
 
 

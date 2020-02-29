@@ -77,7 +77,7 @@ void readFromFile() {
             break;
         }
         case DOOM_THE_LIST: {
-            //deleteList();
+            deleteList();
             break;
         }
         case PRINT_ALL: {
