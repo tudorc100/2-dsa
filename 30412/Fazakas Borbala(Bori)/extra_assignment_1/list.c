@@ -47,22 +47,6 @@ void deleteFirst(list *myList) {
     }
 }
 
-void deleteLast(list *myList) {
-    if (myList->last != NULL) {
-        node *lastButOne = myList->first;
-        if (myList->first != myList->last) {
-            while (lastButOne->next->next != NULL) lastButOne = lastButOne->next;
-            free(myList->last);
-            myList->last = lastButOne;
-            lastButOne->next = NULL;
-        } else {
-            free(myList->last);
-            myList->last = NULL;
-            myList->first = NULL;
-        }
-    }
-}
-
 int sumOfElements(list *myList) {
     node *curNode = myList->first;
     int sum = 0;

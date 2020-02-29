@@ -46,8 +46,6 @@ int main() {
     fprintf(outFile, "The weakest country was: %s\n", weakestCountry(&myCountries).name);
 
 
-    printf("the size of bunker is %d\n", sizeOfBunker);
-    printf("the strongest country could have defeated: %d\n", strongestCanDefeatAlone);
     if (strongestCanDefeatAlone + 1 >=
         sizeOfBunker) {// +1 because he doesn't necessarily need to defeat Jim Kong-nu too, just the sentinels.
         // Obviously, if the strongest country can't defeat the bunker, thancountries with less power can't defeat it either --> it's eneugh to test it whether the strongest country can defeat it or not{
