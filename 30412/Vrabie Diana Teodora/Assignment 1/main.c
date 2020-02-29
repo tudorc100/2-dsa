@@ -73,7 +73,7 @@ void readFromFile() {
             break;
         }
         case DL: {
-            //removeLastElement();
+            removeLastElement();
             break;
         }
         case DOOM_THE_LIST: {

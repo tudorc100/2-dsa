@@ -61,5 +61,20 @@ void removeFirstElement() {
     }
 }
 
+void removeLastElement() {
+    if (last == NULL) {
+        perror("Invalid remove last element, exiting...\n");
+        exit(-1);
+    } else {
+        ListElement *element = first;
+        while (element->next->next != NULL) {
+            element = element->next;
+        }
+        last = element;
+        free(element->next);
+        last->next = NULL;
+    }
+}
+
 
 
