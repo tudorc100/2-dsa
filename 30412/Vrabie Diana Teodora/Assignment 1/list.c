@@ -50,5 +50,16 @@ void addElementToEnd(int data) {
     }
 }
 
+void removeFirstElement() {
+    if (first== NULL) {
+        perror("Invalid remove first element, exiting...\n");
+        exit(-1);
+    } else {
+        ListElement *element = first;
+        first = first->next;
+        free(element);
+    }
+}
+
 
 

@@ -69,7 +69,7 @@ void readFromFile() {
             break;
         }
         case DF: {
-            //removeFirstElement();
+            removeFirstElement();
             break;
         }
         case DL: {
