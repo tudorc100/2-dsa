@@ -26,6 +26,7 @@ void addElementToFront(int data) {
 }
 
 void printAll(FILE *file) {
+    if (countElements() == 0) return;
     if (first == NULL) {
         fprintf(file, "List is empty!\n");
     } else {
@@ -53,9 +54,11 @@ void addElementToEnd(int data) {
 }
 
 void removeFirstElement() {
+    if (countElements() == 0) return;
     if (first== NULL) {
-        perror("Invalid remove first element, exiting...\n");
-        exit(-1);
+        return;
+        //perror("Invalid remove first element, exiting...\n");
+        //exit(-1);
     } else {
         ListElement *element = first;
         first = first->next;
@@ -64,9 +67,11 @@ void removeFirstElement() {
 }
 
 void removeLastElement() {
+    if (countElements() == 0) return;
     if (last == NULL) {
-        perror("Invalid remove last element, exiting...\n");
-        exit(-1);
+        return;
+        //perror("Invalid remove last element, exiting...\n");
+        //exit(-1);
     } else {
         ListElement *element = first;
         while (element->next->next != NULL) {
@@ -79,11 +84,14 @@ void removeLastElement() {
 }
 
 void deleteList() {
+    if (countElements() == 0) return;
     while (first != NULL)
         removeFirstElement();
 }
 
 void removeElement(int data) {
+    if (countElements() == 0)
+        return;
     ListElement *currentElement = first;
     ListElement *prevElement = first;
     while (currentElement != NULL) {
@@ -110,6 +118,7 @@ void removeElement(int data) {
 }
 
 void printFirstNElements(int nr, FILE *file) {
+    if (countElements() == 0) return;
     ListElement *currentElement = first;
     for (int i = 0; i < nr; ++i) {
         if (currentElement == NULL) break;
