@@ -48,7 +48,9 @@ void readFromFile() {
         }
         case AL: {
             fscanf(inputFile, "%s", valueString);
-            //addElementToEnd(valueString);
+            char *p = NULL;
+            value = strtol(valueString, &p, value);
+            addElementToEnd(value);
             break;
         }
         case DE: {

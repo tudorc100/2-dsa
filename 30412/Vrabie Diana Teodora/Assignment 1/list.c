@@ -36,18 +36,19 @@ void printAll(FILE *file) {
     }
 }
 
-/*void addElementToEnd(int data) {
+void addElementToEnd(int data) {
     if (first == NULL) {
         first->data = data;
         first->next = last;
         last = first;
     } else {
         ListElement *newElement = (ListElement*) malloc(sizeof(ListElement));
-
+        last->next = newElement;
+        newElement->next = NULL;
+        newElement->data = data;
+        last = newElement;
     }
-
 }
-*/
 
 
 
