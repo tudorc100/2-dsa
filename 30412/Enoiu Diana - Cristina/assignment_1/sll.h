@@ -11,7 +11,11 @@ void AF(int data);
 void AL(int data);
 void DF();
 void DL();
-void PRINT_ALL();
+void DOOM_THE_LIST();
+void DE(int data);
+void PRINT_ALL(FILE * output);
+void PRINT_F (FILE * output, int tillValue);
+void PRINT_L (FILE * output, int tillValue);
 typedef struct _node {
     int data;
     struct _node * next;
