@@ -51,7 +51,11 @@ int main() {
     Country *country = firstCountry;
     while (country!= NULL) {
         printf("%s ", country->name);
-
+        Wave *wave = country->firstWave;
+        while (wave != NULL) {
+            printf("%d ", wave->damage);
+            wave = wave->next;
+        }
         country = country->next;
     }
 

@@ -30,7 +30,6 @@ void addCountry(char line[100]) {
         Country *newCountry = (Country*) malloc(sizeof(Country));
         lastCountry->next = newCountry;
         newCountry->next = NULL;
-        //modify val
         strcpy(newCountry->name, strtok(line, " "));
         initializeWaveList(&newCountry->firstWave, &newCountry->lastWave);
         char *p = strtok(NULL, "");
