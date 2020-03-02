@@ -7,8 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 void initializeSll();
-void addFirst(int data);
-void printSll();
+void AF(int data);
+void AL(int data);
+void DF();
+void DL();
+void PRINT_ALL();
 typedef struct _node {
     int data;
     struct _node * next;

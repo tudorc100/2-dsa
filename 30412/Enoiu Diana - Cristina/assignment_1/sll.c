@@ -7,12 +7,12 @@ void initializeSll() {
     first = NULL;
     last = NULL;
 }
-void addFirst(int data) {
+void AF(int data) {
     if (first == NULL) {
         first = (NodeT *)malloc(sizeof(NodeT));
         first->data = data;
-        first->next = last;
-        last = NULL;
+        first->next = NULL;
+        last = first;
     }
     else {
         NodeT * newElement = (NodeT *)malloc(sizeof(NodeT));
@@ -21,15 +21,52 @@ void addFirst(int data) {
         first = newElement;
     }
 }
-void printSll() {
+void AL(int data) {
+    if (first == NULL)
+    {
+        first = (NodeT*)malloc(sizeof(NodeT));
+        first->data = data;
+        first->next = NULL;
+        last = first;
+    }
+    else
+    {
+        NodeT * newElement = (NodeT*)malloc(sizeof(NodeT));
+        last->next = newElement;
+        newElement->data = data;
+        newElement->next = NULL;
+        last = newElement;
+    }
+}
+void DF() {
+    if(first != NULL) {
+        NodeT *firstElement = first;
+        first = first->next;
+        free(firstElement);
+    }
+}
+void DL() {
+    if(first != NULL) {
+        NodeT * currentElement = first;
+        NodeT * previousElement= first;
+        while (currentElement->next != NULL) {
+            previousElement = currentElement;
+            currentElement = currentElement->next;
+        }
+        free (currentElement);
+        previousElement->next = NULL;
+    }
+}
+void PRINT_ALL() {
     if(first == NULL) {
         printf("List is empty!\n");
     }
     else {
-        last = first;
-        while (last != NULL) {
-            printf("%d ", last->data); //esier?
-            last = last->next;
+        NodeT * currentElement;
+        currentElement = first;
+        while (currentElement != NULL) {
+            printf("%d ", currentElement->data);
+            currentElement = currentElement->next;
         }
         printf("\n");
     }
