@@ -6,22 +6,22 @@
 #include <stdlib.h>
 
 
-void initializeWaveList(Wave *first, Wave *last) {
-    first = NULL;
-    last = NULL;
+void initializeWaveList(Wave **first, Wave **last) {
+    *first = NULL;
+    *last = NULL;
 }
 
-void addWave(Wave *first, Wave *last, int data) {
-    if (first == NULL) {
-        first = (Wave*) malloc(sizeof(Wave));
-        first->damage = data;
-        first->next = last;
-        last = first;
+void addWave(Wave **first, Wave **last, int data) {
+    if (*first == NULL) {
+        *first = (Wave*) malloc(sizeof(Wave));
+        (*first)->damage = data;
+        (*first)->next = *last;
+        *last = *first;
     } else {
         Wave *newWave = (Wave*) malloc(sizeof(Wave));
-        last->next = newWave;
         newWave->next = NULL;
         newWave->damage = data;
-        last = newWave;
+        (*last)->next = newWave;
+        *last = newWave;
     }
 }

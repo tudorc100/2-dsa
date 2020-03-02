@@ -28,10 +28,31 @@ int main() {
         addSentinel(data);
     }
 
+
+    ///print sentinels
+    //TODO: remove before final comit
     Sentinel *cursor = firstSentinel;
     while (cursor != NULL) {
         printf("%d ", cursor->hitPoints);
         cursor = cursor->next;
+    }
+    printf("\n");
+
+    fscanf(inputFile, "%s", read);
+    nrOfCountries = strtol(read, &p, 10);
+    getc(inputFile);
+
+    for (int j = 0; j < nrOfCountries; ++j) {
+        char line[100];
+        fgets(line, 100, inputFile);
+        addCountry(line);
+    }
+
+    Country *country = firstCountry;
+    while (country!= NULL) {
+        printf("%s ", country->name);
+
+        country = country->next;
     }
 
     return 0;

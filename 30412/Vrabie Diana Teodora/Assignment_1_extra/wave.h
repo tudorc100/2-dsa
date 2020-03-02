@@ -10,7 +10,7 @@ typedef struct _Wave {
     struct _Wave *next;
 } Wave;
 
-void initializeWaveList(Wave *first, Wave *last);
-void addWave(Wave *first, Wave *last, int data);
+void initializeWaveList(Wave **first, Wave **last);
+void addWave(Wave **first, Wave **last, int data);
 
 #endif //ASSIGNMENT_1_EXTRA_WAVE_H
