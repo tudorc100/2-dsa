@@ -13,12 +13,11 @@ int isTyrantDead();
 
 char *lastHitCountry();
 
-char *strongestCountry();
+Country * strongestCountry();
 
 char *weakestCountry();
 
 int couldCountryDefeatAlone();
 
-void printStrongestCountry();
 
 #endif //ASSIGNMENT_1_EXTRA_PARSE_VALUES_H

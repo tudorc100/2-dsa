@@ -63,10 +63,13 @@ int main() {
     }
     printf("\n");
 
+    //TODO modify these to print to file
     if (isTyrantDead()) {
         printf("The tyrant was killed!\n");
         printf("The last hit was done by: %s\n", lastHitCountry());
     } else printf("The tyrant wasn't killed.\n");
+
+    printf("The strongest country was: %s\n", strongestCountry()->name);
 
     return 0;
 }

@@ -39,7 +39,7 @@ char *lastHitCountry() {
                 wave = wave->next;
             }
         }
-        if (wave!=NULL) {
+        if (wave != NULL) {
             totalHitPoints -= wave->damage;
             if (totalHitPoints <= 0) {
                 //isThisHitTheLast = 1;
@@ -53,6 +53,26 @@ char *lastHitCountry() {
             country = country->next;
         }
     }
+}
+
+Country *strongestCountry() {
+    Country *country = firstCountry;
+    Country *strongestCountry = firstCountry;
+    int maxMight = 0;
+    while (country != NULL) {
+        Wave *wave = country->firstWave;
+        int might = 0;
+        while (wave != NULL) {
+            might += wave->damage;
+            wave = wave->next;
+        }
+        if (might >= maxMight) {
+            maxMight = might;
+            strongestCountry = country;
+        }
+        country = country->next;
+    }
+    return strongestCountry;
 }
 
 int countTotalDamage() {
