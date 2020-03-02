@@ -65,7 +65,6 @@ int main() {
                 }
             }
         }
-        PRINT_ALL(outputFile);
     }
     free(line);
     return 0;
