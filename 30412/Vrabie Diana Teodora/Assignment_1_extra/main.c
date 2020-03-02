@@ -3,6 +3,7 @@
 #include "country.h"
 #include "wave.h"
 #include "sentinel.h"
+#include "parse-values.h"
 
 #define INPUT_PATH "../input.dat"
 #define OUTPUT_PATH "../output.dat"
@@ -40,6 +41,7 @@ int main() {
 
     fscanf(inputFile, "%s", read);
     nrOfCountries = strtol(read, &p, 10);
+    initializeCountryList();
     getc(inputFile);
 
     for (int j = 0; j < nrOfCountries; ++j) {
@@ -48,6 +50,7 @@ int main() {
         addCountry(line);
     }
 
+    //TODO remove before final comit
     Country *country = firstCountry;
     while (country!= NULL) {
         printf("%s ", country->name);
@@ -58,6 +61,10 @@ int main() {
         }
         country = country->next;
     }
+    printf("\n");
+
+    if (isTyrantDead()) printf("The tyrant was killed!\n");
+    else printf("The tyrant wasn't killed.\n");
 
     return 0;
 }
