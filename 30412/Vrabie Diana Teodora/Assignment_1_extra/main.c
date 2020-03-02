@@ -52,7 +52,7 @@ int main() {
 
     //TODO remove before final comit
     Country *country = firstCountry;
-    while (country!= NULL) {
+    while (country != NULL) {
         printf("%s ", country->name);
         Wave *wave = country->firstWave;
         while (wave != NULL) {
@@ -63,8 +63,10 @@ int main() {
     }
     printf("\n");
 
-    if (isTyrantDead()) printf("The tyrant was killed!\n");
-    else printf("The tyrant wasn't killed.\n");
+    if (isTyrantDead()) {
+        printf("The tyrant was killed!\n");
+        printf("The last hit was done by: %s\n", lastHitCountry());
+    } else printf("The tyrant wasn't killed.\n");
 
     return 0;
 }

@@ -10,10 +10,15 @@
 #include "sentinel.h"
 
 int isTyrantDead();
-char* lastHitCountry();
-char* strongestCountry();
-char* weakestCountry();
+
+char *lastHitCountry();
+
+char *strongestCountry();
+
+char *weakestCountry();
+
 int couldCountryDefeatAlone();
+
 void printStrongestCountry();
 
 #endif //ASSIGNMENT_1_EXTRA_PARSE_VALUES_H

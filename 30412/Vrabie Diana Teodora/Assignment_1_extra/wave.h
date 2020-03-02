@@ -11,6 +11,7 @@ typedef struct _Wave {
 } Wave;
 
 void initializeWaveList(Wave **first, Wave **last);
+
 void addWave(Wave **first, Wave **last, int data);
 
 #endif //ASSIGNMENT_1_EXTRA_WAVE_H

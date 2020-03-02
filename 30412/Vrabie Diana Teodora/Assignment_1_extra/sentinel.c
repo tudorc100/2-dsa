@@ -12,12 +12,12 @@ void initializeSentinelList() {
 
 void addSentinel(int data) {
     if (firstSentinel == NULL) {
-        firstSentinel = (Sentinel*) malloc(sizeof(Sentinel));
+        firstSentinel = (Sentinel *) malloc(sizeof(Sentinel));
         firstSentinel->hitPoints = data;
         firstSentinel->next = lastSentinel;
         lastSentinel = firstSentinel;
     } else {
-        Sentinel *newSentinel = (Sentinel*) malloc(sizeof(Sentinel));
+        Sentinel *newSentinel = (Sentinel *) malloc(sizeof(Sentinel));
         newSentinel->hitPoints = data;
         newSentinel->next = NULL;
         lastSentinel->next = newSentinel;

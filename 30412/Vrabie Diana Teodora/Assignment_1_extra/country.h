@@ -17,6 +17,7 @@ typedef struct _Country {
 Country *firstCountry, *lastCountry;
 
 void initializeCountryList();
+
 void addCountry(char name[20]);
 
 

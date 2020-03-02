@@ -17,5 +17,4 @@ void initializeSentinelList();
 void addSentinel(int data);
 
 
-
 #endif //ASSIGNMENT_1_EXTRA_SENTINEL_H
