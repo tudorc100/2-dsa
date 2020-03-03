@@ -76,14 +76,15 @@ void initList() {
 }
 
 void addFirst(int x) {
-    nodeT *newFirst = (nodeT*)malloc(sizeof(nodeT));
-    newFirst->value=x;
     if((first)==NULL) {
         first = (nodeT*)malloc(sizeof(nodeT));
-        first=newFirst;
-        first->next=last;
+        first->next = last;
+        first->value = x;
+        last = first;
     }
     else {
+        nodeT *newFirst = (nodeT*)malloc(sizeof(nodeT));
+        newFirst->value=x;
         nodeT *copyFirst=first;
         newFirst->next=copyFirst;
         first=newFirst;
@@ -95,17 +96,13 @@ void addLast(int x) {
         first = (nodeT*)malloc(sizeof(nodeT));
         first->next = last;
         first->value = x;
-    }
-    else if (last==NULL) {
-        last=(nodeT*)malloc(sizeof(nodeT));
-        last->next = NULL;
-        last->value = x;
+        last = first;
     }
     else {
         nodeT *newLast = (nodeT*)malloc(sizeof(nodeT));
-        nodeT *lastCopy=last;
         newLast->value=x;
-        lastCopy->next=newLast;
+        newLast->next=NULL;
+        last->next=newLast;
         last=newLast;
     }
 }
@@ -124,14 +121,17 @@ void deleteLast() {
         }
         newLast->next = NULL;
         free(last);
+        last=newLast;
     }
 }
 
 void deleteElement(int x) {
     nodeT * currentElement = first;
     nodeT * previousElement= first;
-    while(currentElement != NULL) {
+    int foundElement=0;
+    while(currentElement != NULL && foundElement==0) {
         if(currentElement->value == x) {
+            foundElement=1;
             if(currentElement == first) {
                 first = first->next;
             }
