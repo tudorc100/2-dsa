@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #define FILE_ERROR_MESS "File was not found."
+#define MEM_ALLOC_ERROR "Memory allocation failed."
 
 typedef struct _wave {
     int damage;
@@ -25,6 +26,9 @@ typedef struct _rebels {
 FILE * openFile(char * name, char * mode);
 void initializeCountry(RebelT * c);
 void addWave(RebelT *country, int x);
+/*
+ * read and save the data from the input file
+ */
 int * getEnemyData(FILE *fp, int *N, int *resistance);
 RebelT * getRebelsData(FILE *fp, int *M);
 

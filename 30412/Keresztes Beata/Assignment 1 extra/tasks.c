@@ -4,6 +4,21 @@
 
 #include "tasks.h"
 
+void rebellion(FILE * fp, int M, RebelT * countries, int resistance) {
+
+    WaveT ** attacks = prepareAttacks(M, countries);
+    int maxNoOfWaves = findMaxNoOfWaves(M, countries);
+    int finalBlowIndex = -1;
+    for (int k = 0; k < maxNoOfWaves; k++) {
+        finalBlowIndex = attackingEnemy(M, attacks, resistance);
+        if(finalBlowIndex > -1) {
+            break;
+        }
+    }
+    resultOfAttack(fp, countries, finalBlowIndex);
+    cleanBattleField(M, attacks);
+}
+
 int findMaxNoOfWaves(int M, RebelT * countries) {
 
     int Max=0;
@@ -20,49 +35,55 @@ int findMaxNoOfWaves(int M, RebelT * countries) {
     }
     return Max;
 }
-void resultOfAttack(FILE *fp, int M, RebelT * countries, int resistance) {
+WaveT ** prepareAttacks(int M, RebelT * countries) {
 
     WaveT ** attacks = (WaveT **) malloc(M * sizeof(WaveT *));
-    for (int i = 0; i < M; i++) {
-        attacks[i] = (WaveT *)malloc(sizeof(WaveT));
-        attacks[i] = countries[i].first;
+    if(attacks) {
+        for (int i = 0; i < M; i++) {
+            attacks[i] = (WaveT *) malloc(sizeof(WaveT));
+            attacks[i] = countries[i].first;
+        }
+        return attacks;
     }
+    else {
+        perror(MEM_ALLOC_ERROR);
+        exit(EXIT_FAILURE);
+    }
+}
 
-    int maxNoOfWaves = findMaxNoOfWaves(M, countries);
+int attackingEnemy(int M, WaveT ** attacks, int resistance) {
 
-    int amountOfDamage = 0, finalBlowIndex = -1;
-    bool victory = false;
+   static int amountOfDamage = 0;
 
-    for (int k = 0; k < maxNoOfWaves && !victory; k++) {
+    for (int index = 0; index < M; index++) {
+        if (attacks[index]) {
+            amountOfDamage += attacks[index]->damage;
+            attacks[index] = attacks[index]->nextWave;
 
-        for (int i = 0; i < M && !victory; i++) {
-            if (attacks[i] != NULL) {
-                amountOfDamage += attacks[i]->damage;
-                attacks[i] = attacks[i]->nextWave;
-            }
             if (amountOfDamage >= resistance) {
-                finalBlowIndex = i;
-                victory = true;
+                return index;
             }
         }
     }
+    return -1;
+}
 
-    if (victory == true) {
+void resultOfAttack(FILE * fp, RebelT * countries, int finalBlowIndex) {
+    if (finalBlowIndex > -1) {
         fprintf(fp,"The tyrant was killed!\n");
-    } else {
-        fprintf(fp,"The tyrant could not be killed!\n");
-    }
-    if (finalBlowIndex != -1) {
         fprintf(fp,"The last hit was done by: %s\n", countries[finalBlowIndex].name);
     } else {
+        fprintf(fp,"The tyrant could not be killed!\n");
         fprintf(fp,"No country had the hitting blow.\n");
     }
-
+}
+void cleanBattleField(int M, WaveT ** attacks) {
     for (int i = 0; i < M; i++) {
         free(attacks[i]);
     }
     free(attacks);
 }
+
 int findWeakest(int M, RebelT * countries) {
 
     int weakestIndex = -1, minPower = INT_MAX;
@@ -98,27 +119,31 @@ int findStrongest(int M, RebelT * countries, int * maxPower) {
     return strongestIndex;
 }
 
+int noSentinelsDefeatedByOne(int N, int * sentinels, int * power) {
+
+    for(int i=0; i<N; i++) {
+        if(*power >= sentinels[i]) {
+            *power -= sentinels[i];
+        }
+        else {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void defeatAlone(FILE *fp, int N, int * sentinels, int resistance, RebelT strongestCountry, int maxPower) {
 
-    if(maxPower >= resistance) {
-        fprintf(fp,"%s could have won alone\n",strongestCountry.name);
-    }
-    else {
-        fprintf(fp,"No countries could have defeated all the sentinels.\n");
-        int remainingPower = maxPower, lastDefeated = -1;
-        bool endOfAttack = false;
-        for(int i=0; i<N && !endOfAttack; i++) {
-            if(remainingPower >= sentinels[i]) {
-                remainingPower -= sentinels[i];
-            }
-            else {
-                lastDefeated = i;
-                endOfAttack = true;
-            }
+    if (maxPower >= resistance) {
+        fprintf(fp, "%s could have won alone\n", strongestCountry.name);
+    } else {
+        fprintf(fp, "No countries could have defeated all the sentinels.\n");
+        int remainingPower = maxPower;
+        int lastDefeated = noSentinelsDefeatedByOne(N, sentinels, &remainingPower);
+        if (lastDefeated > -1) {
+            fprintf(fp, "%s could have brought down the first %d sentinels and would"
+                        " have had chipped off %d life points from sentinels %d.\n",
+                    strongestCountry.name, lastDefeated, remainingPower, lastDefeated + 1);
         }
-        fprintf(fp,"%s could have brought down the first %d sentinels and would"
-                   " have had chipped off %d life points from sentinels %d.\n",
-                strongestCountry.name, lastDefeated, remainingPower, lastDefeated+1);
     }
-
 }
