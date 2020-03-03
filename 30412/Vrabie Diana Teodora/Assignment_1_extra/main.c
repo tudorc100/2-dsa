@@ -29,16 +29,6 @@ int main() {
         addSentinel(data);
     }
 
-
-    ///print sentinels
-    //TODO: remove before final comit
-    Sentinel *cursor = firstSentinel;
-    while (cursor != NULL) {
-        printf("%d ", cursor->hitPoints);
-        cursor = cursor->next;
-    }
-    printf("\n");
-
     fscanf(inputFile, "%s", read);
     nrOfCountries = strtol(read, &p, 10);
     initializeCountryList();
@@ -50,26 +40,21 @@ int main() {
         addCountry(line);
     }
 
-    //TODO remove before final comit
-    Country *country = firstCountry;
-    while (country != NULL) {
-        printf("%s ", country->name);
-        Wave *wave = country->firstWave;
-        while (wave != NULL) {
-            printf("%d ", wave->damage);
-            wave = wave->next;
-        }
-        country = country->next;
-    }
-    printf("\n");
-
-    //TODO modify these to print to file
     if (isTyrantDead()) {
-        printf("The tyrant was killed!\n");
-        printf("The last hit was done by: %s\n", lastHitCountry());
-    } else printf("The tyrant wasn't killed.\n");
+        fprintf(outputFile, "The tyrant was killed!\n");
+        fprintf(outputFile, "The last hit was done by: %s\n", lastHitCountry());
+    } else fprintf(outputFile, "The tyrant wasn't killed.\n");
+    fprintf(outputFile, "The strongest country was: %s\n", strongestCountry()->name);
+    fprintf(outputFile, "The weakest country was: %s\n", weakestCountry()->name);
+    if (couldCountryDefeatAlone() == 1) {
+        fprintf(outputFile, "%s could have defeated all the sentinels.\n", strongestCountry()->name);
+    } else {
+        fprintf(outputFile, "No country could have defeated all the sentinels alone.\n");
+        printBestCountryStats(outputFile);
+    }
 
-    printf("The strongest country was: %s\n", strongestCountry()->name);
+    fclose(inputFile);
+    fclose(outputFile);
 
     return 0;
 }

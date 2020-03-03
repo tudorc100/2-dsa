@@ -4,10 +4,13 @@
 
 #include "parse-values.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define TYRANT_HP 1
 
 int countTotalDamage();
+
+int countCountryMight(Country *country);
 
 int countTotalHitPoints();
 
@@ -60,12 +63,7 @@ Country *strongestCountry() {
     Country *strongestCountry = firstCountry;
     int maxMight = 0;
     while (country != NULL) {
-        Wave *wave = country->firstWave;
-        int might = 0;
-        while (wave != NULL) {
-            might += wave->damage;
-            wave = wave->next;
-        }
+        int might = countCountryMight(country);
         if (might >= maxMight) {
             maxMight = might;
             strongestCountry = country;
@@ -73,6 +71,74 @@ Country *strongestCountry() {
         country = country->next;
     }
     return strongestCountry;
+}
+
+int couldCountryDefeatAlone() {
+    int totalHitPoints = countTotalHitPoints();
+    Country *country = firstCountry;
+    while (country != NULL) {
+        int might = countCountryMight(country);
+        if (might - totalHitPoints + TYRANT_HP >= 0) {
+            return 1;
+        }
+        country = country->next;
+    }
+    return 0;
+}
+
+void printBestCountryStats(FILE *file) {
+    Country *bestCountry = strongestCountry();
+    Wave *wave = bestCountry->firstWave;
+    int totalDamage = 0, chippedDamage = 0, chippedSentinelIndex = 0, destroyedSentinelNr = 0, currentSentinelIndex = 1;
+    while (wave != NULL) {
+        totalDamage += wave->damage;
+        wave = wave->next;
+    }
+    Sentinel *sentinel = firstSentinel;
+    while (totalDamage > 0) {
+        totalDamage -= sentinel->hitPoints;
+        if (totalDamage < 0) {
+            chippedDamage = sentinel->hitPoints + totalDamage;
+            chippedSentinelIndex = currentSentinelIndex;
+        } else {
+            destroyedSentinelNr++;
+        }
+        currentSentinelIndex++;
+        sentinel = sentinel->next;
+    }
+    if (destroyedSentinelNr > 0) {
+        if (chippedDamage > 0) {
+            fprintf(file,
+                    "%s could have brought down the first %d sentinels and would have chipped off %d life points from sentinel %d.\n",
+                    bestCountry->name, destroyedSentinelNr, chippedDamage, chippedSentinelIndex);
+        } else {
+            fprintf(file, "%s could have brought down the first %d sentinels.\n", bestCountry->name,
+                    destroyedSentinelNr);
+        }
+    } else {
+        if (chippedDamage > 0) {
+            fprintf(file, "%s could have chipped off %d life points from sentinel %d.\n", bestCountry->name,
+                    chippedDamage,
+                    chippedSentinelIndex);
+        } else {
+            fprintf(file, "%s could have done nothing.\n", bestCountry->name);
+        }
+    }
+}
+
+Country *weakestCountry() {
+    Country *country = firstCountry;
+    Country *weakestCountry = firstCountry;
+    int minMight = 9999999;
+    while (country != NULL) {
+        int might = countCountryMight(country);
+        if (might <= minMight) {
+            minMight = might;
+            weakestCountry = country;
+        }
+        country = country->next;
+    }
+    return weakestCountry;
 }
 
 int countTotalDamage() {
@@ -87,5 +153,15 @@ int countTotalDamage() {
         country = country->next;
     }
     return totalDamage;
+}
+
+int countCountryMight(Country *country) {
+    Wave *wave = country->firstWave;
+    int might = 0;
+    while (wave != NULL) {
+        might += wave->damage;
+        wave = wave->next;
+    }
+    return might;
 }
 
