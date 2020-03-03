@@ -1,9 +1,16 @@
 //
 // Created by Cosmin on 26-Feb-20.
 //
-//#include "head.h"
+#include "head.h"
 
-/*void AF(int x){
+
+Node *first, *last;
+
+void init(){
+    first = NULL;
+    last = NULL;
+}
+void AF(int x){
     if(first == NULL){
         first = (Node *)malloc(sizeof(Node));
         first->data = x;
@@ -123,4 +130,4 @@ void PRINT_L(int x){
         }
         fprintf(output,"\n");
     }
-}*/
+}
