@@ -31,39 +31,24 @@ int main() {
         p = strtok(0, " ");
         if (p)
             x = atoi(p);
-        if (strcmp(operation, "AF") == 0)
+        if (strcmp(operation, "AF") == 0) {
             AF(x);
-        else {
-            if (strcmp(operation, "AL") == 0)
-                AL(x);
-            else {
-                if (strcmp(operation, "DF") == 0)
-                    DF();
-                else {
-                    if (strcmp(operation, "DL") == 0)
-                        DL();
-                    else {
-                        if (strcmp(operation, "DOOM_THE_LIST") == 0)
-                            DOOM_THE_LIST();
-                        else {
-                            if (strcmp(operation, "DE") == 0)
-                                DE_x(x);
-                            else {
-                                if (strcmp(operation, "PRINT_ALL") == 0)
-                                    PRINT_ALL(outputFile);
-                                else {
-                                    if (strcmp(operation, "PRINT_F") == 0)
-                                        PRINT_F(x, outputFile);
-                                    else {
-                                        if (strcmp(operation, "PRINT_ALL") == 0)
-                                            PRINT_L(x, outputFile);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        } else if (strcmp(operation, "AL") == 0) {
+            AL(x);
+        } else if (strcmp(operation, "DF") == 0) {
+            DF();
+        } else if (strcmp(operation, "DL") == 0) {
+            DL();
+        } else if (strcmp(operation, "DOOM_THE_LIST") == 0) {
+            DOOM_THE_LIST();
+        } else if (strcmp(operation, "DE") == 0) {
+            DE_x(x);
+        } else if (strcmp(operation, "PRINT_ALL") == 0) {
+            PRINT_ALL(outputFile);
+        } else if (strcmp(operation, "PRINT_F") == 0) {
+            PRINT_F(x, outputFile);
+        } else if (strcmp(operation, "PRINT_ALL") == 0) {
+            PRINT_L(x, outputFile);
         }
     }
     free(line);
