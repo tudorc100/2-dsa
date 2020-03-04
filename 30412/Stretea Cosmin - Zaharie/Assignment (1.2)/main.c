@@ -19,13 +19,17 @@ int *sentinel;
 int N, M;
 
 int JimKongShield;
+int maxDamage, minDamage, killEmAll = 0;
+char weakest[MAX_NAME], strongest[MAX_NAME], lastHit[MAX_NAME];
 
+void printResultWeakestStrongest();
+void verifyStrongestCountry(int copyJimKongShield);
+void findStrongestWeakestLastHit();
+void getSentinelsShield();
+void getCountriesAndWaves();
 void addLastNode(int val, wave **first, wave **last);
-
 void deleteFirstNode(wave **first);
-
 int thereIsAWave();
-
 void printAll();
 
 FILE *input, *output;
@@ -35,97 +39,12 @@ int main() {
     input = fopen("input.dat", "r");
     output = fopen("output.dat", "w");
 
-    fscanf(input, "%d", &N);
-    getc(input);
-    sentinel = (int *) malloc(N * sizeof(int));
-    for (int i = 0; i < N; i++) {
-        fscanf(input, "%d", &sentinel[i]);
-        getc(input);
-        JimKongShield += sentinel[i];
-    }
-
-    fscanf(input, "%d", &M);
-    getc(input);
-    countryList = (country *) malloc(M * sizeof(country));
-    for (int i = 0; i < M; i++) {
-        (countryList + i)->totalDamage = 0;
-        (countryList + i)->name = (char *) malloc(MAX_NAME * sizeof(char));
-        fscanf(input, "%s", (countryList + i)->name);
-        getc(input);
-        (countryList + i)->firstWave = NULL;
-        (countryList + i)->lastWave = NULL;
-
-        int damageCopy;
-        char c;
-        do{
-            fscanf(input, "%d", &damageCopy);
-            c = fgetc(input);
-            addLastNode(damageCopy, &(countryList + i)->firstWave, &(countryList + i)->lastWave);
-        }while(c != '\n' && c != EOF);
-    }
-
-    int maxDamage, minDamage, killEmAll = 0;
-    maxDamage = minDamage = countryList[0].firstWave->damage;
-    char weakest[MAX_NAME], strongest[MAX_NAME], lastHit[MAX_NAME];
-    JimKongShield++;
-    int copyJimKongShield = JimKongShield;
-    while (JimKongShield > 0 && thereIsAWave()) {
-        for (int i = 0; i < M; i++) {
-            if((countryList + i)->firstWave) {
-                int damageDealt = (countryList + i)->firstWave->damage;
-                JimKongShield -= damageDealt;
-                (countryList + i)->totalDamage += damageDealt;
-                int currentTotalDamage = (countryList + i)->totalDamage;
-                deleteFirstNode(&(countryList + i)->firstWave);
-
-                if (JimKongShield <= 0) {
-                    strcpy(lastHit, (countryList + i)->name);
-                    break;
-                }
-
-                if (currentTotalDamage > maxDamage) {
-                    maxDamage = currentTotalDamage;
-                    strcpy(strongest, (countryList + i)->name);
-
-                } else if (currentTotalDamage < minDamage) {
-                    minDamage = currentTotalDamage;
-                    strcpy(weakest, (countryList + i)->name);
-                }
-            }
-        }
-    }
-    if (JimKongShield <= 0) {
-        fprintf(output, "The tyrant was killed!\n");
-    } else {
-        fprintf(output, "The tyrant was not killed!\n");
-    }
-    if (JimKongShield <= 0) {
-        fprintf(output, "The last hit was done by: %s\n", lastHit);
-    }
-    fprintf(output, "The strongest country was: %s\n", strongest);
-    fprintf(output, "The weakest country was: %s\n", weakest);
-
-    for (int i = 0; i < M; i++) {
-        if ((countryList + i)->totalDamage > copyJimKongShield) {
-            killEmAll = 1;
-            break;
-        }
-    }
-    if (killEmAll == 0) {
-        fprintf(output, "No country could have defeated all the sentinels.\n");
-        int indCurrentSentinel = 0;
-        while(maxDamage > 0 && indCurrentSentinel<N){
-            if(maxDamage > sentinel[indCurrentSentinel]) {
-                maxDamage -= sentinel[indCurrentSentinel];
-                indCurrentSentinel++;
-            }
-            else
-                break;
-        }
-        fprintf(output,"%s could have brought down the first %d sentinels and would have had chipped off %d life points from sentinel %d.", strongest, indCurrentSentinel, maxDamage, indCurrentSentinel+1);
-    } else {
-        fprintf(output, "The country which could have defeated all the sentinels is: %s\n", strongest);
-    }
+    getSentinelsShield();
+    getCountriesAndWaves();
+    int copyJimKongShield = ++JimKongShield; //we add '1' life point from 'mister'
+    findStrongestWeakestLastHit();
+    printResultWeakestStrongest();
+    verifyStrongestCountry(copyJimKongShield);
     fclose(input);
     fclose(output);
     return 0;
@@ -162,13 +81,106 @@ int thereIsAWave(){
 void printAll(){
     for (int i = 0; i < M; i++) {
         printf("%s:", countryList[i].name);
-        while (countryList[i].firstWave) {
-            printf("%d ", countryList[i].firstWave->damage);
-            countryList[i].firstWave = countryList[i].firstWave->next;
+        country currentCountry = countryList[i];
+        while (currentCountry.firstWave) {
+            printf("%d ", currentCountry.firstWave->damage);
+            currentCountry.firstWave = currentCountry.firstWave->next;
         }
         printf("\n");
     }
     for (int i = 0; i < N; i++) {
         printf("%d ", sentinel[i]);
     }
+}
+void getCountriesAndWaves(){
+    fscanf(input, "%d", &M);
+    getc(input);
+    countryList = (country *) malloc(M * sizeof(country));
+    for (int i = 0; i < M; i++) {
+        (countryList + i)->totalDamage = 0;
+        (countryList + i)->name = (char *) malloc(MAX_NAME * sizeof(char));
+        fscanf(input, "%s", (countryList + i)->name);
+        getc(input);
+        (countryList + i)->firstWave = NULL;
+        (countryList + i)->lastWave = NULL;
+        int damageCopy, c;
+        do{
+            fscanf(input, "%d", &damageCopy);
+            c = fgetc(input);
+            addLastNode(damageCopy, &(countryList + i)->firstWave, &(countryList + i)->lastWave);
+        }while(c != '\n' && c != EOF);
+    }
+}
+void getSentinelsShield(){
+    fscanf(input, "%d", &N);
+    getc(input);
+    sentinel = (int *) malloc(N * sizeof(int));
+    for (int i = 0; i < N; i++) {
+        fscanf(input, "%d", &sentinel[i]);
+        getc(input);
+        JimKongShield += sentinel[i];
+    }
+}
+void findStrongestWeakestLastHit(){
+    maxDamage = minDamage = countryList[0].firstWave->damage;
+    while (JimKongShield > 0 && thereIsAWave()) {
+        for (int i = 0; i < M; i++) {
+            if((countryList + i)->firstWave) {
+                int damageDealt = (countryList + i)->firstWave->damage;
+                JimKongShield -= damageDealt;
+                (countryList + i)->totalDamage += damageDealt;
+                int currentTotalDamage = (countryList + i)->totalDamage;
+                deleteFirstNode(&(countryList + i)->firstWave);
+
+                if (JimKongShield <= 0) {
+                    strcpy(lastHit, (countryList + i)->name);
+                    break;
+                }
+
+                if (currentTotalDamage > maxDamage) {
+                    maxDamage = currentTotalDamage;
+                    strcpy(strongest, (countryList + i)->name);
+
+                } else if (currentTotalDamage < minDamage) {
+                    minDamage = currentTotalDamage;
+                    strcpy(weakest, (countryList + i)->name);
+                }
+            }
+        }
+    }
+}
+void verifyStrongestCountry(int copyJimKongShield){
+    for (int i = 0; i < M; i++) {
+        if ((countryList + i)->totalDamage > copyJimKongShield) {
+            killEmAll = 1; //check if there was a country which could have defeated the boss
+            break;
+        }
+    }
+    if (killEmAll == 0) {
+        fprintf(output, "No country could have defeated all the sentinels.\n");
+        int indCurrentSentinel = 0;
+        while(maxDamage > 0 && indCurrentSentinel<N){      //if not we find how many sentinels has the strongest country brought down
+            if(maxDamage > sentinel[indCurrentSentinel]) {
+                maxDamage -= sentinel[indCurrentSentinel];
+                indCurrentSentinel++;
+            }
+            else
+                break;
+        }
+        fprintf(output,"%s could have brought down the first %d sentinels and would have had chipped off %d life points from sentinel %d.", strongest, indCurrentSentinel, maxDamage, indCurrentSentinel+1);
+    } else {
+        fprintf(output, "The country which could have defeated all the sentinels is: %s\n", strongest); //else we print the strongest
+    }
+}
+void printResultWeakestStrongest(){
+    if (JimKongShield <= 0) {
+        fprintf(output, "The tyrant was killed!\n");
+    } else {
+        fprintf(output, "The tyrant was not killed!\n");
+    }
+    if (JimKongShield <= 0) {
+        fprintf(output, "The last hit was done by: %s\n", lastHit);
+    }
+    fprintf(output, "The strongest country was: %s\n", strongest);
+    fprintf(output, "The weakest country was: %s\n", weakest);
 }

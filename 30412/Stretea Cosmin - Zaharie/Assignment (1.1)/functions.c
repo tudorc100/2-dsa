@@ -46,14 +46,16 @@ void DF(){
     first = first->next;
     free(currentNode);
 }
-void DL(){
-    Node * currentNode = first;
-    while(currentNode->next != NULL){
-        last = currentNode;
-        currentNode = currentNode->next;
+void DL() {
+    if (first) {
+        Node *currentNode = first;
+        while (currentNode->next != NULL) {
+            last = currentNode;
+            currentNode = currentNode->next;
+        }
+        free(last->next);
+        last->next = NULL;
     }
-    free(last->next);
-    last->next = NULL;
 }
 void DOOM_THE_LIST(){
     Node * currentNode;
