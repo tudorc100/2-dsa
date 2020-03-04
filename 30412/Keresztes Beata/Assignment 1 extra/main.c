@@ -14,7 +14,7 @@ int main() {
     //perform tasks
     FILE * fOut = openFile(OUTPUT_FILE_NAME,"w");
     // attack
-    resultOfAttack(fOut, M, countries, resistance);
+    rebellion(fOut, M, countries, resistance);
     //measure strength;
     int maxPower = 0;
     int strongestCountry = findStrongest(M, countries, &maxPower);
