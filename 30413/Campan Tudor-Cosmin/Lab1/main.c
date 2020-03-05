@@ -189,51 +189,50 @@ void Actiuni(FILE *f,FILE *g)
     while (fgets(strbuf,MAX_ACTION,f)!=NULL)
     {
         p=strtok(strbuf," ");
-        if (strcmp(p,"AF"))
+        if (strcmp(p,"AF") == 0)
         {
             p=strtok(NULL," ");
-AF(atoi(p));
+            AF(atoi(p));
         }
-        else
-            if (strcmp(p,"AL"))
-          {
+        else if (strcmp(p,"AL")==0)
+        {
 
-           p=strtok(NULL," ");
-        AL(atoi(p));}
-        else if(strcmp(p,"DP"))
+            p=strtok(NULL," ");
+            AL(atoi(p));
+        }
+        else if(strcmp(p,"DP")==0)
         {
             DF();
         }
-        else if(strcmp(p,"DL"))
+        else if(strcmp(p,"DL")==0)
         {
             DL();
 
         }
-        else if(strcmp(p,"DOOM_THE_LIST"))
+        else if(strcmp(p,"DOOM_THE_LIST")==0)
         {
             DOOM_THE_LIST();
         }
-        else if(strcmp(p,"DE"))
+        else if(strcmp(p,"DE")==0)
         {
             p=strtok(NULL," ");
             DE(atoi(p));
         }
-        else if(strcmp(p,"PRINT_ALL"))
+        else if(strcmp(p,"PRINT_ALL")==0)
         {
             PRINT_ALL(g);
         }
-        else if(strcmp(p,"PRINT_L"))
+        else if(strcmp(p,"PRINT_L")==0)
         {
             p=strtok(NULL," ");
             PRINT_L(atoi(p),g);
         }
-        else if(strcmp(p,"PRINT_F"))
+        else if(strcmp(p,"PRINT_F")==0)
         {
             p=strtok(NULL," ");
             PRINT_F(atoi(p),g);
         }
     }
-    p=strtok(NULL," ");
 }
 int main()
 {
@@ -241,7 +240,7 @@ int main()
 
     FILE *f=fopen("input.dat","r");
     FILE *g=fopen("output.dat","w");
-Actiuni(f,g);
+    Actiuni(f,g);
 
     return 0;
 }
