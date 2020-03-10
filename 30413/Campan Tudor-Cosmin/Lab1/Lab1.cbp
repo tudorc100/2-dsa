@@ -36,6 +36,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="output.dat" />
+		<Unit filename="test.dat" />
 		<Extensions>
 			<code_completion />
 			<envvars />

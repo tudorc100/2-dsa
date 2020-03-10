@@ -1,246 +1,272 @@
 #include <stdio.h>
 #include <stdlib.h>
-static int MAX_ACTION=20;
+#include <string.h>
+
+
 typedef struct node
 {
     int data;
     struct node * next;
-} NodeT;
-NodeT * first, * last;
 
+} ListNode;
+
+ListNode *first, *last;
+
+const int MAX_ACTION=300;
 void initializeSll()
 {
-    first = NULL;
-    last = NULL;
-}
-void DF()
-{
-    NodeT* currentElement=first;
-    if(first==NULL)
-        return;
-    first=first->next;
-    free(currentElement);
-}
-void DL()
-{
-    NodeT* currentElement=first;
-    if(first==NULL)
-        return;
-    while(currentElement->next!=last)
-    {
-        currentElement=currentElement->next;
-    }
-    free(last);
-    last=currentElement;
-}
-void AL(int data)
-{
-    if(first == NULL)
-    {
-        first = (NodeT*)malloc(sizeof(NodeT));
-        first->next = last;
-        first->data = data;
-        last = first;
-    }
-    else
-    {
-        NodeT * newElement = (NodeT*)malloc(sizeof(NodeT));
-        last->next = newElement;
-        newElement->next = NULL;
-        newElement->data = data;
-        last = newElement;
-    }
+    first=NULL;
+    last=NULL;
 }
 
 
-void AF(int data)
+
+void AF (int x)
 {
     if(first == NULL)
     {
-        first = (NodeT*)malloc(sizeof(NodeT));
-        first->next = last;
-        first->data = data;
-        last = first;
+        first=(ListNode *) malloc (sizeof(ListNode));
+        first->data=x;
+        first->next=last;
+        last=first;
     }
     else
     {
-        NodeT * newElement = (NodeT*)malloc(sizeof(NodeT));
-        newElement->next=first;
-        newElement->data=data;
-        first=newElement;
+        ListNode *NewElement=(ListNode *) malloc (sizeof(ListNode));
+        NewElement->data=x;
+        NewElement->next=first;
+        first=NewElement;
     }
 }
-void DE(int data)
+void AL (int x)
 {
-    NodeT * currentElement = first;
-    NodeT * previousElement= first;
-    while(currentElement != NULL)
+    if(first==NULL)
     {
-        if(currentElement->data == data)
+        first=(ListNode *) malloc (sizeof(ListNode));
+        first->data=x;
+        first->next=last;
+        last=first;
+    }
+    else
+    {
+        ListNode *NewElement= (ListNode *) malloc (sizeof (ListNode));
+        NewElement->data=x;
+        last->next=NewElement;
+        NewElement->next=NULL;
+        last=NewElement;
+    }
+}
+void DF (FILE *g)
+{
+    if(first!=NULL)
+    {
+        ListNode * copy;
+        copy=first->next;
+        free(first);
+        first=copy;
+
+    }
+    else
+        fprintf(g,"List is empty \n");
+}
+void DL (FILE*g)
+{
+    if(first!=NULL)
+    {
+        ListNode *Element = (ListNode *) malloc (sizeof(ListNode));
+        Element=first;
+        while(Element->next!=last)
         {
-            if(currentElement == first)
-            {
-                first = first->next;
-            }
-            else if(currentElement == last)
-            {
-                last = previousElement;
-                last->next = NULL;
-            }
+            Element=Element->next;
+        }
+        free(last);
+        last=Element;
+        last->next=NULL;
+    }
+    else
+        fprintf(g,"List is empty \n");
+
+}
+void DOOM_THE_LIST()
+{
+    ListNode *copy = first;
+    while (copy!=NULL)
+    {
+        first = first->next;
+        free(copy);
+        copy=first;
+    }
+    last=first;
+
+}
+void DE (int x,FILE *g)
+{
+    if(first!=NULL)
+    {
+        ListNode *PreviousElement = (ListNode *) malloc (sizeof(ListNode));
+        ListNode *CurrentElement = (ListNode *) malloc (sizeof(ListNode));
+        PreviousElement=first;
+        CurrentElement=first;
+        while(PreviousElement!=last&&CurrentElement->data!=x)
+        {
+            PreviousElement=CurrentElement;
+            CurrentElement=CurrentElement->next;
+        }
+
+        if(PreviousElement!=last)
+        {
+            if(CurrentElement==first)
+                DF(g);
+            else if(CurrentElement==last)
+                DL(g);
             else
             {
-                previousElement->next = currentElement->next;
+                PreviousElement->next=CurrentElement->next;
+                free(CurrentElement);
             }
-            previousElement = currentElement;
-            currentElement = currentElement->next;
-            free(previousElement);
-            previousElement = currentElement;
-        }
-        else
-        {
-            previousElement = currentElement;
-            currentElement = currentElement->next;
-        }
 
+        }
     }
+
 }
 
 void PRINT_ALL(FILE *g)
 {
-    if(first == NULL)
-    {
-        fprintf(g,"List is empty!\n");
-    }
+    if (first==NULL)
+        printf("The list is empty");
     else
     {
-        NodeT * currentElement = first;
-        while(currentElement != NULL)
+        ListNode *CurrentElement;
+        CurrentElement=first;
+        while(CurrentElement != NULL)
         {
-            fprintf(g,"%d ", currentElement->data);
-            currentElement = currentElement->next;
-        }
-        fprintf(g,"\n");
-    }
-
-}
-void PRINT_F(int k,FILE *g)
-{
-    int ok=0;
-    if(first == NULL)
-    {
-        fprintf(g,"List is empty!\n");
-    }
-    else
-    {
-        NodeT * currentElement = first;
-        while(currentElement != NULL)
-            if(ok<k)
-            {
-                fprintf(g,"%d ", currentElement->data);
-                currentElement = currentElement->next;
-                ok++;
-            }
-        fprintf(g,"\n");
-    }
-}
-void PRINT_L(int k,FILE *g)
-{
-    NodeT *currentNode=first;
-    int nrElements=0;
-    while(currentNode!=NULL)
-    {
-        nrElements++;
-        currentNode=currentNode->next;
-
-    }
-    int i;
-    currentNode=first;
-    if(nrElements<=k)
-    {
-        PRINT_ALL(g);
-    }
-    else
-    {
-        for(i=1; i<=nrElements; i++)
-        {
-            if(i>nrElements-k)
-            {
-                fprintf(g,"%d",currentNode->data);
-            }
-            currentNode=currentNode->next;
+            fprintf(g,"%d ",CurrentElement->data);
+            CurrentElement=CurrentElement->next;
         }
     }
     fprintf(g,"\n");
 }
-void DOOM_THE_LIST()
+void PRINT_F (int x,FILE*g)
 {
-    NodeT * currentElement = first;
-    while(currentElement != NULL)
+    int i=0;
+    ListNode *Element;
+    Element=first;
+    while(Element!=NULL && i<x)
     {
-        first = first->next;
-        free(currentElement);
-        currentElement = first;
+        fprintf(g,"%d ",Element->data);
+        Element=Element->next;
+        i++;
     }
+    fprintf(g,"\n");
 }
-void Actiuni(FILE *f,FILE *g)
+void PRINT_L (int x,FILE *g)
 {
-    char *strbuf=(char*)malloc(sizeof(char)*250);
-    char*p;
-    while (fgets(strbuf,MAX_ACTION,f)!=NULL)
+    int i=0,j;
+    ListNode *Element= (ListNode *) malloc(sizeof(ListNode));
+    Element=first;
+    while(Element!=NULL)
     {
-        p=strtok(strbuf," ");
-        if (strcmp(p,"AF") == 0)
+        Element=Element->next;
+        i++;
+    }
+    if(i<=x)
+        PRINT_ALL(g);
+    else
+    {
+        j=0;
+        Element=first;
+        while(j<i-x)
         {
-            p=strtok(NULL," ");
-            AF(atoi(p));
-        }
-        else if (strcmp(p,"AL")==0)
-        {
-
-            p=strtok(NULL," ");
-            AL(atoi(p));
-        }
-        else if(strcmp(p,"DP")==0)
-        {
-            DF();
-        }
-        else if(strcmp(p,"DL")==0)
-        {
-            DL();
+            Element=Element->next;
+            j++;
 
         }
-        else if(strcmp(p,"DOOM_THE_LIST")==0)
+
+        while(j<i)
         {
+            fprintf(g,"%d ",Element->data);
+            Element=Element->next;
+            j++;
+        }
+    }
+    fprintf(g,"\n");
+}
+void readInstructions(FILE *f,FILE *g)
+{
+    int i,nr;
+    char *s=(char *) malloc(sizeof(char)*MAX_ACTION);
+    char *p;
+    while(fgets(s,MAX_ACTION,f)!=NULL)
+    {
+        p=strtok(s," \n");
+
+        if(!strcmp(p,"AF"))
+        {
+            p=strtok(NULL," \n");
+            nr=atoi(p);
+
+            AF(nr);
+
+        }
+        else if(!strcmp(p,"AL"))
+        {
+            p=strtok(NULL," \n");
+            nr=atoi(p);
+            AL(nr);
+
+        }
+        else if(!strcmp(p,"DF"))
+        {
+            DF(g);
+
+        }
+        else if(!strcmp(p,"DL"))
+        {
+
+            DL(g);
+
+        }
+        else if(!strcmp(p,"DOOM_THE_LIST"))
+        {
+
             DOOM_THE_LIST();
+
         }
-        else if(strcmp(p,"DE")==0)
+        else if(!strcmp(p,"DE"))
         {
-            p=strtok(NULL," ");
-            DE(atoi(p));
+            p=strtok(NULL," \n");
+            nr=atoi(p);
+            DE(nr,g);
+
         }
-        else if(strcmp(p,"PRINT_ALL")==0)
+        else if(!strcmp(p,"PRINT_ALL"))
         {
             PRINT_ALL(g);
         }
-        else if(strcmp(p,"PRINT_L")==0)
+        else if(!strcmp(p,"PRINT_F"))
         {
-            p=strtok(NULL," ");
-            PRINT_L(atoi(p),g);
+            p=strtok(NULL," \n");
+            nr=atoi(p);
+            PRINT_F(nr,g);
         }
-        else if(strcmp(p,"PRINT_F")==0)
+        else if(!strcmp(p,"PRINT_L"))
         {
-            p=strtok(NULL," ");
-            PRINT_F(atoi(p),g);
+            p=strtok(NULL," \n");
+            nr=atoi(p);
+            PRINT_L(nr,g);
         }
     }
+
 }
+
+
+
 int main()
 {
+    FILE *f=fopen("input.dat","r+");
+    FILE *g=fopen("output.dat","r+");
     initializeSll();
-
-    FILE *f=fopen("input.dat","r");
-    FILE *g=fopen("output.dat","w");
-    Actiuni(f,g);
+    readInstructions(f,g);
 
     return 0;
 }
